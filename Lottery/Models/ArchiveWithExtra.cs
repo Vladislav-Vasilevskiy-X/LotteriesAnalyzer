@@ -8,7 +8,7 @@ namespace Lottery.Models
 {
 	public class ArchiveWithExtra
 	{
-		private List<ArchiveNumber> archive = new List<ArchiveNumber>();
+		public List<ArchiveNumber> archive = new List<ArchiveNumber>();
 		private List<ArchiveNumber> extras = new List<ArchiveNumber>();
 
 		public void Initialize()

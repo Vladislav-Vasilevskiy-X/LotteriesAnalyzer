@@ -41,5 +41,46 @@ namespace Lottery
 
 			return archive;
 		}
+
+		public List<int[]> ParseAsSequences(string input)
+		{
+			var cleared = input.Replace(@"\n", String.Empty).Replace(@"\t", string.Empty);
+			var numbers = new List<int>();
+			var buf = string.Empty;
+			for (int i = 0; i < cleared.Length - 4; i++)
+			{
+				buf = string.Empty;
+				if (cleared[i + 2] == '<' && cleared[i + 3] == '/' && cleared[i + 4] == 'b')
+				{
+					buf = cleared[i].ToString() + cleared[i + 1].ToString();
+					numbers.Add(Int32.Parse(buf, NumberStyles.Any));
+				}
+			}
+
+			var list = new List<int[]>();
+			var innerIndex = 0;
+			var buffer = new int[Constants.GameNumbersFallsOutWithExtra];
+			for (int i = 0; i < numbers.Count; i++)
+			{
+				buffer[innerIndex] = numbers[i];
+				if (innerIndex == Constants.GameNumbersFallsOut)
+				{
+					//var sb = new int[Constants.GameNumbersFallsOut - ];
+					//for (int g = 0; g < Constants.GameNumbersFallsOut - 1; g++)
+					//{
+					//	sb[g] = buffer[g];
+					//}
+
+					list.Add(buffer);
+					buffer = new int[Constants.GameNumbersFallsOutWithExtra];
+					innerIndex = 0;
+					continue;
+				}
+
+				innerIndex++;
+			}
+
+			return list;
+		}
 	}
 }

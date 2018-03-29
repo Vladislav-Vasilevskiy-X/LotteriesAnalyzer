@@ -21,7 +21,7 @@ namespace Lottery
 			for (int i = 1; i < 1000; i++)
 			{
 				var response = new Connector().GetStoloto5x36HisttoryPageData(i);
-				if(response.Length < 40) break;
+				if (response.Length < 40) break;
 				var archive2 = parser.ParseAsArchive(response);
 				archiveWithExtra.Append(archive2);
 			}
@@ -38,8 +38,55 @@ namespace Lottery
 				}
 			}
 
-			/*
+			//var parser = new RestParser();
+			//ArchiveWithExtra archiveWithExtra = new ArchiveWithExtra();
+			//List<int[]> seqs = new List<int[]>();
+			//for (int i = 1; i < 1000; i++)
+			//{
+			//	var response = new Connector().GetStoloto5x36HisttoryPageData(i);
+			//	if (response.Length < 40) break;
+			//	var seqs2 = parser.ParseAsSequences(response);
+			//	seqs.AddRange(seqs2);
+			//}
 
+
+			//var listOfQoefs = new List<int>();
+			//for (int i = 100; i < seqs.Count - 1; i++)
+			//{
+			//	if (i < 100)
+			//	{
+			//		archiveWithExtra.AddSequence(seqs[i]);
+			//	}
+			//	else
+			//	{
+			//		if (i % 10 == 0)
+			//		{
+			//			var allSorted = archiveWithExtra.archive.OrderBy(e => e.FacedTimes).Select(e => e.Value).ToList();
+			//			var predicted = allSorted.Take(Constants.GameNumbersFallsOut).ToArray();
+			//			int q = 0;
+			//			for (int s = 0; s < Constants.GameNumbersFallsOut; s++)
+			//			{
+			//				if (!predicted.Contains(seqs[i + 1][s]))
+			//				{
+			//					q += allSorted.IndexOf(seqs[i + 1][s]) + 1 - Constants.GameNumbersFallsOut;
+			//				}
+			//			}
+
+			//			listOfQoefs.Add(q);
+			//		}
+			//	}
+			//}
+
+			////for (int j = 0; j < listOfQoefs.Count; j++)
+			////{
+			////	var postfix = (j == listOfQoefs.Count - 1) ? ".\n" : ", ";
+			////	Console.Write(listOfQoefs[j] + postfix);
+			////}
+
+			//Console.WriteLine($"Min value: {listOfQoefs.Min()}, max value: {listOfQoefs.Max()}. Average by calculations {listOfQoefs.Average()}. Average by min/max: {(listOfQoefs.Max() + listOfQoefs.Min()) / 2}");
+
+
+			/*
 			var simulator = new Simulator();
 			int Editions = 50000;
 			var archive = new Archive();
@@ -73,7 +120,7 @@ namespace Lottery
 
 					var sequence = simulator.GenerateGameResult();
 					archive.AddSequence(sequence, i);
-					
+
 					var resultPred = Bettor.CheckResult(betPrediction, sequence);
 					var resultRand = Bettor.CheckResult(betRandom, sequence);
 
@@ -273,7 +320,7 @@ namespace Lottery
 				var sequence = simulator.GenerateGameResult();
 				archive.AddSequence(sequence, i);
 			}
-			
+
 			var comb = archive.BestCombination(archiveGames);
 			var predComb = archive.PredictSequence();
 			double _q = 1;
